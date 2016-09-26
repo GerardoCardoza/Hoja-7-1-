@@ -1,3 +1,9 @@
+// Hoja de Trabajo #7
+// Grupo # 5 
+// Luis Sierra, 131074
+// Roberto Giron
+// Gerardo Cardoza
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
