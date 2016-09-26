@@ -4,67 +4,163 @@
 // Roberto Giron
 // Gerardo Cardoza
 
-public class BinaryTree<E>{
+import java.util.*;
 
-	protected E val;
-	protected BinaryTree<E> parent;
-	protected BinaryTree<E> left, right;
+public class BinaryTree<E> {
 
-	public BinaryTree(){
-		val = null;
-		parent = null; left = right = this; 
-	}
+	Node root;
 
-	public BinaryTree(E value){
-		Assert.pre(value != null, "Tree values must be not-null.");
-		val = value;
-		right = left = new BinaryTree<E>();
-		setLeft(left);
-		setRight(right);
-	}
+	public void addNode(E key, E name) {
 
-	public BinaryTree(E value, BinaryTree<E> left, BinaryTree<E> right){
-		Assert.pre(value != null, "Tree values must be non-null.");
-		val = value;
-		if (left == null){ 
-			left = new BinaryTree<E>(); 
+		Node newNode = new Node(key, name);
+
+		if (root == null) {
+
+			root = newNode;
+
+		} else {
+
+			Node focusNode = root;
+
+			Node parent;
+
+			while (true) {
+
+				parent = focusNode;
+
+				if (key.toString().compareTo(focusNode.key.toString()) < 0) {
+
+					focusNode = focusNode.leftChild;
+
+					if (focusNode == null) {
+
+						parent.leftChild = newNode;
+						return; 
+
+					}
+
+				} else { 
+
+					focusNode = focusNode.rightChild;
+
+					if (focusNode == null) {
+
+						parent.rightChild = newNode;
+						return; 
+
+					}
+
+				}
+
+			}
 		}
-		setLeft(left);
-		if (rigth == null) {
-			right = new BinaryTree<E>();
+
+	}
+
+	public void inOrderTraverseTree(Node focusNode) {
+
+		if (focusNode != null) {
+
+			inOrderTraverseTree(focusNode.leftChild);
+
+			System.out.println(focusNode);
+
+			inOrderTraverseTree(focusNode.rightChild);
+
 		}
-		setRight(right);
+
 	}
 
-	public BinaryTree<E> left(){
-		return left;
-	}
+	public void preorderTraverseTree(Node focusNode) {
 
-	public BinaryTree<E> parent()
+		if (focusNode != null) {
 
-	public void setLeft(BinaryTree<E> newLeft){
-		if (isEmpty()) return;
-		if (left != null && left.parent() == this) left.setParent(null);
-		left = newLeft;
-		left.setParent;
-	}
+			System.out.println(focusNode);
 
-	protected void setParent(BinaryTree<E> newParent){
-		if (!isEmpty()){
-			parent = newParent;
+			preorderTraverseTree(focusNode.leftChild);
+			preorderTraverseTree(focusNode.rightChild);
+
 		}
+
 	}
 
-	public Iterator<E> iterator()
+	public void postOrderTraverseTree(Node focusNode) {
 
-	public boolean isLeftChild()
+		if (focusNode != null) {
 
-	public E value(){
-		return val;
+			postOrderTraverseTree(focusNode.leftChild);
+			postOrderTraverseTree(focusNode.rightChild);
+
+			System.out.println(focusNode);
+
+		}
+
 	}
 
-	public void setValue (E value){
-		val = Value;
+	public Node findNode(E key) {
+
+		Node focusNode = root;
+
+		while (!focusNode.key.toString().equalsIgnoreCase(key.toString())) {
+
+			if (key.toString().compareTo(focusNode.key.toString()) < 0) {
+
+				focusNode = focusNode.leftChild;
+
+			} else {
+
+				focusNode = focusNode.rightChild;
+			}
+
+			if (focusNode == null)
+				return null;
+
+		}
+
+		return focusNode;
+
+	}
+        
+        public String findName(String key) {
+
+		Node focusNode = root;
+
+		while (!focusNode.key.toString().equalsIgnoreCase(key)) {
+
+			if (key.compareTo(focusNode.key.toString()) < 0) {
+				focusNode = focusNode.leftChild;
+			} else {
+
+				focusNode = focusNode.rightChild;
+			}
+			if (focusNode == null)
+				return null;
+
+		}
+
+		return focusNode.name.toString();
+
 	}
 
+}
+
+class Node<G> {
+
+	G key;
+	G name;
+
+	Node leftChild;
+	Node rightChild;
+
+	Node(G key, G name) {
+            
+		this.key = key;
+		this.name = name;
+                
+	}
+
+	public String toString() {
+
+		return name + " has the key " + key;
+	}
 }
