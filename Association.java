@@ -1,3 +1,9 @@
+// Hoja de Trabajo #7
+// Grupo # 5 
+// Luis Sierra, 131074
+// Roberto Giron
+// Gerardo Cardoza
+
 public class Association<K, V> {
     K key;
     V valor;
